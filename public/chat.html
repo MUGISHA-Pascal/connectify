@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>chat room</title>
+  </head>
+  <body>
+    <div id="message-container"></div>
+    <form id="form">
+      <input
+        type="text"
+        id="message-value"
+        placeholder="Enter the message"
+        required
+      />
+      <button type="submit">Send message</button>
+    </form>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+      var messagecontainer = document.getElementById("message-container");
+      var messagevalue = document.getElementById("message-value");
+      var form = document.getElementById("form");
+      var room = new URLSearchParams(`/chat/${room}`).get("room");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        var msg = messagevalue.value;
+        if (msg) {
+          socket.emit("chatMessage", { msg, room });
+        }
+        msg = "";
+      });
+
+      fetch(`/chat/${room}`)
+        .then((response) => {
+          response.json();
+        })
+        .then((messages) => {
+          messages.forEach((message) => {
+            const div = document.createElement("div");
+            div.textContent = message.content;
+            messagecontainer.appendChild(div);
+          });
+        });
+
+      socket.on("message", (mesg) => {
+        const div = document.createElement("div");
+        div.textContent = mesg;
+        messagecontainer.appendChild(div);
+      });
+    </script>
+  </body>
+</html>

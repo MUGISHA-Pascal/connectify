@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Enter the room</title>
+  </head>
+  <body>
+    <form id="form">
+      <input type="text" id="room" placeholder="enter the room" required />
+      <button type="submit">Send room</button>
+    </form>
+    <script>
+      var form = document.getElementById("form");
+      var room = document.getElementById("room");
+      form.addEventListener("submit", (e) => {
+        e.preventDefault();
+        var roomvalue = room.value;
+        if (roomvalue) {
+          window.location.href = `/chat.html?room=${roomvalue}`;
+        }
+      });
+    </script>
+  </body>
+</html>
