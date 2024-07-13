@@ -22,7 +22,8 @@
       var messagecontainer = document.getElementById("message-container");
       var messagevalue = document.getElementById("message-value");
       var form = document.getElementById("form");
-      var room = new URLSearchParams(`/chat/${room}`).get("room");
+      var room = new URLSearchParams(window.location.search).get("room");
+      socket.emit("joinRoom", { room });
       form.addEventListener("submit", (e) => {
         e.preventDefault();
         var msg = messagevalue.value;
@@ -33,9 +34,7 @@
       });
 
       fetch(`/chat/${room}`)
-        .then((response) => {
-          response.json();
-        })
+        .then((response) => response.json())
         .then((messages) => {
           messages.forEach((message) => {
             const div = document.createElement("div");
@@ -44,10 +43,11 @@
           });
         });
 
-      socket.on("message", (mesg) => {
+      socket.on("message", function (msg) {
         const div = document.createElement("div");
-        div.textContent = mesg;
+        div.textContent = msg;
         messagecontainer.appendChild(div);
+        window.scrollTo(0, document.body.scrollHeight);
       });
     </script>
   </body>

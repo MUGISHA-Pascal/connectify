@@ -5,8 +5,8 @@ const app = express();
 const http = require("http");
 const server = http.createServer(app);
 const io = socketIo(server);
-const chatroutes = "./routes/chat";
-const Message = "./models/message";
+const chatroutes = require("./routes/chat");
+const Message = require("./models/message");
 
 mongoose.connect("mongodb://localhost:27017/connectify");
 
