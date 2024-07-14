@@ -3,9 +3,16 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>chat room</title>
+    <title>Chat Room</title>
+    <link rel="stylesheet" href="chat.css" />
   </head>
   <body>
+    <div id="menu">
+      <label class="switch">
+        <input type="checkbox" id="dark-mode-toggle" />
+        <span class="slider round"></span>
+      </label>
+    </div>
     <div id="message-container"></div>
     <form id="form">
       <input
@@ -30,7 +37,7 @@
         if (msg) {
           socket.emit("chatMessage", { msg, room });
         }
-        msg = "";
+        messagevalue.value = "";
       });
 
       fetch(`/chat/${room}`)
@@ -40,6 +47,7 @@
             const div = document.createElement("div");
             div.textContent = message.content;
             messagecontainer.appendChild(div);
+            window.scrollTo(0, document.body.scrollHeight);
           });
         });
 
@@ -48,6 +56,11 @@
         div.textContent = msg;
         messagecontainer.appendChild(div);
         window.scrollTo(0, document.body.scrollHeight);
+      });
+
+      const darkModeToggle = document.getElementById("dark-mode-toggle");
+      darkModeToggle.addEventListener("change", () => {
+        document.body.classList.toggle("dark-mode");
       });
     </script>
   </body>
