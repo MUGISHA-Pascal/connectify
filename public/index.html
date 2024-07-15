@@ -4,21 +4,42 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Enter the room</title>
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Include Font Awesome for the toggle icon -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
   </head>
   <body>
+    <div class="toggle-container">
+      <label class="switch">
+        <input id="toggle" type="checkbox" />
+        <span class="slider round"></span>
+      </label>
+      <span class="toggle-label">Dark Mode</span>
+    </div>
+
     <form id="form">
-      <input type="text" id="room" placeholder="enter the room" required />
+      <input type="text" id="room" placeholder="Enter the room" required />
       <button type="submit">Send room</button>
     </form>
+
     <script>
       var form = document.getElementById("form");
       var room = document.getElementById("room");
-      form.addEventListener("submit", (e) => {
+      var toggle = document.getElementById("toggle");
+
+      form.addEventListener("submit", function (e) {
         e.preventDefault();
         var roomvalue = room.value;
         if (roomvalue) {
           window.location.href = `/chat.html?room=${roomvalue}`;
         }
+      });
+
+      toggle.addEventListener("change", function () {
+        document.body.classList.toggle("dark-theme", toggle.checked);
       });
     </script>
   </body>

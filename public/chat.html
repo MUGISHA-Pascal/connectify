@@ -37,7 +37,7 @@
         if (msg) {
           socket.emit("chatMessage", { msg, room });
         }
-        messagevalue.value = "";
+        messagevalue.value = ""; // Clear input field
       });
 
       fetch(`/chat/${room}`)
@@ -47,7 +47,6 @@
             const div = document.createElement("div");
             div.textContent = message.content;
             messagecontainer.appendChild(div);
-            window.scrollTo(0, document.body.scrollHeight);
           });
         });
 
@@ -58,6 +57,7 @@
         window.scrollTo(0, document.body.scrollHeight);
       });
 
+      // Dark mode toggle functionality
       const darkModeToggle = document.getElementById("dark-mode-toggle");
       darkModeToggle.addEventListener("change", () => {
         document.body.classList.toggle("dark-mode");
