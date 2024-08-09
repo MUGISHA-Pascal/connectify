@@ -6,6 +6,7 @@ const http = require("http");
 const server = http.createServer(app);
 const io = socketIo(server);
 const chatroutes = require("./routes/chat");
+const passport_setup = require("../config/passport_setup");
 const authRoutes = require("./routes/authRoutes");
 const Message = require("./models/message");
 
