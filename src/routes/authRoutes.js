@@ -8,7 +8,11 @@ authRoutes.get(
   "/google",
   passport.authenticate("google", { scope: ["profile"] })
 );
-authRoutes.get("/google/redirect", (req, res) => {
-  res.send("reached the google auth");
-});
+authRoutes.get(
+  "/google/redirect",
+  passport.authenticate("google"),
+  (req, res) => {
+    res.send("reached the google auth");
+  }
+);
 module.exports = authRoutes;
