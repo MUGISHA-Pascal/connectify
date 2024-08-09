@@ -13,7 +13,7 @@ const Message = require("./models/message");
 const passport = require("passport");
 const session = require("express-session");
 
-mongoose.connect("mongodb://localhost:27017/connectify");
+mongoose.connect(keys.mongodbURL);
 app.use(
   session({
     name: "user cookie",
@@ -27,6 +27,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
+app.use(express.static("views"));
 app.use("/auth", authRoutes);
 app.get("/", (req, res) => {
   res.render("home");

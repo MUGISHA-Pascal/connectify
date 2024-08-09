@@ -12,7 +12,7 @@ authRoutes.get(
   "/google/redirect",
   passport.authenticate("google"),
   (req, res) => {
-    res.send("reached the google auth");
+    res.render("room");
   }
 );
 module.exports = authRoutes;

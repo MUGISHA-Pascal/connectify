@@ -21,7 +21,7 @@ passport.use(
       clientSecret: keys.clientSecret,
     },
     async (accessToken, refreshToken, profile, done) => {
-      await User.findOne(profile.id).then((currentuser) => {
+      await User.findOne({ googleId: profile.id }).then((currentuser) => {
         if (currentuser) {
           done(null, currentuser);
         } else {
