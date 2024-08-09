@@ -6,12 +6,25 @@ const http = require("http");
 const server = http.createServer(app);
 const io = socketIo(server);
 const chatroutes = require("./routes/chat");
+const keys = require("../keys");
 const passport_setup = require("../config/passport_setup");
 const authRoutes = require("./routes/authRoutes");
 const Message = require("./models/message");
+const passport = require("passport");
+const session = require("express-session");
 
 mongoose.connect("mongodb://localhost:27017/connectify");
-
+app.use(
+  session({
+    name: "user cookie",
+    secret: keys.secret_key,
+    resave: false,
+    saveUninitialized: false,
+    cookie: { maxAge: 24 * 60 * 60 * 1000 },
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 app.use("/auth", authRoutes);
